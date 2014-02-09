@@ -1,211 +1,96 @@
+
+# THE MODULE
 module HumanAPI
-  class Human < Nestful::Resource
-    endpoint 'https://api.humanapi.co'
-    path '/v1/human'
+	# THE CLASS
+	class Human < Nestful::Resource
 
-    def self.token=(value)
-      @token = value
-    end
+		# The host of the api
+		endpoint 'https://api.humanapi.co'
 
-    def self.token
-      @token
-    end
+		# The path of the api
+		path '/v1/human'
 
-    # Profile
+		# The available methods for this api
+		AVAILABLE_METHODS = [
+							:profile, 
+							:activities, 
+							:blood_glucose, 
+							:blood_pressure, 
+							:body_fat, 
+							:genetic_traits, 
+							:heart_rate, 
+							:height, 
+							:locations, 
+							:sleeps, 
+							:weight, 
+							:bmi
+							]
 
-    def self.profile(token = token)
-      get('profile', :access_token => token)
-    end
+		# Set the token
+		def self.token=(value)
+			@token = value
+		end
 
-    def self.summary(token = token)
-      get('', :access_token => token)
-    end
+		# Get the token
+		def self.token
+			@token
+		end
 
-    # Activity
+		# Profile =====================================
 
-    def self.activities(id = "", token = token)
-      get("activities/#{id}", :access_token => token)
-    end
+		def self.summary(token = token)
+			get('', :access_token => token)
+		end
 
-    def self.daily_activities(date, token = token)
-      get("activities/daily/#{date.strftime('%F')}", :access_token => token)
-    end
+		def self.profile(token = token)
+			query('profile')
+		end
 
-    def self.summary_activities(token = token)
-      get("activities/summary", :access_token => token)
-    end
+		# =============================================
 
-    def self.summary_activities(date, token = token)
-      get("activities/summary/#{date.strftime('%F')}", :access_token => token)
-    end
+		def self.query(method, options = {}, token = token)
 
-    # Blood Glucose
+			# Is this method in the list?
+			if AVAILABLE_METHODS.include? method.to_sym
+				# From sym to string
+				method = method.to_s
 
-    def self.blood_glucose(token = token)
-      get("blood_glucose", :access_token => token)
-    end
+				# The base of the url
+				url = "#{method}"
 
-    def self.readings_blood_glucose(token = token)
-      get('blood_glucose/readings', :access_token => token)
-    end
+				# If it is a singular word prepare for readings
+				if method.is_singular?
+					if options[:readings] == true
+						url += "/readings"
+					end
+				else
+					if options[:summary] == true
+						url += "/summary"
+					end
+				end
 
-    def self.readings_blood_glucose(id, token = token)
-      get("blood_glucose/readings/#{id}", :access_token => token)
-    end
+				# You passed a date
+				if options[:date].present?
+					# Make a request for a specific date
+					url += "/daily/#{options[:date]}"
 
-    def self.daily_blood_glucose(date, token = token)
-      get("blood_glucose/readings/daily/#{date.strftime('%F')}", :access_token => token)
-    end
+				# If you passed an id
+				elsif options[:id].present?
+					# Make a request for a single 
+					url += "/#{id}"
+				end
 
-    # Blood presure
+				# Make the request finally
+				result = get(url, :access_token => token)
 
-    def self.blood_pressure(token = token)
-      get("blood_pressure", :access_token => token)
-    end
+				# Converting to json the body string
+				JSON.parse(result.body)
+			else
+				# Tell the developer the method is not there
+				"The method '#{method}' does not exist!"
+			end
 
-    def self.readings_blood_pressure(token = token)
-      get("blood_pressure/readings", :access_token => token)
-    end
+		end
 
-    def self.readings_blood_pressure(id, token = token)
-      get("blood_pressure/readings/#{id}", :access_token => token)
-    end
-
-    def self.daily_blood_pressure(date, token = token)
-      get("blood_pressure/readings/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    # BMI
-
-    def self.bmi(token = token)
-      get("bmi", :access_token => token)
-    end
-
-    def self.readings_bmi(token = token)
-      get('bmi/readings', :access_token => token)
-    end
-
-    def self.readings_bmi(id, token = token)
-      get("bmi/readings/#{id}", :access_token => token)
-    end
-
-    def self.readings_daily_bmi(date, token = token)
-      get("bmi/readings/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    # Body fat
-
-    def self.body_fat(token = token)
-      get("body_fat", :access_token => token)
-    end
-
-    def self.readings_body_fat(token = token)
-      get('body_fat/readings', :access_token => token)
-    end
-
-    def self.readings_body_fat(id, token = token)
-      get("body_fat/readings/#{id}", :access_token => token)
-    end
-
-    def self.readings_daily_body_fat(date, token = token)
-      get("body_fat/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    # Genetics
-
-    def self.genetic_traits(token = token)
-      get('genetic/traits', :access_token => token)
-    end
-
-    # Heart rate
-
-    def self.heart_rate(token = token)
-      get("heart_rate", :access_token => token)
-    end
-
-    def self.readings_heart_rates(token = token)
-      get('heart_rate/readings', :access_token => token)
-    end
-
-    def self.readings_heart_rates(id, token = token)
-      get("heart_rate/readings/#{id}", :access_token => token)
-    end
-
-    def self.readings_daily_heart_rate(date, token = token)
-      get("heart_rate/readings/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    # Height
-
-    def self.height(token = token)
-      get("height", :access_token => token)
-    end
-
-    def self.readings_height(token = token)
-      get("height/readings", :access_token => token)
-    end
-
-    def self.readings_height(id, token = token)
-      get("height/readings/#{id}", :access_token => token)
-    end
-
-    def self.readings_daily_height(date, token = token)
-      get("height/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    # Location
-
-    def self.locations(token = token)
-      get('locations', :access_token => token)
-    end
-
-    def self.locations(id, token = token)
-      get("locations/#{id}", :access_token => token)
-    end
-
-    def self.daily_locations(date, token = token)
-      get("locations/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    # Sleep
-
-    def self.sleeps(token = token)
-      get("sleeps", :access_token => token)
-    end
-
-    def self.sleeps(id , token = token)
-      get("sleeps/#{id}", :access_token => token)
-    end
-
-    def self.daily_sleeps(date, token = token)
-      get("sleeps/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    def self.summary_sleeps(token = token)
-      get("sleeps/summary", :access_token => token)
-    end
-
-    def self.summary_sleeps(date, token = token)
-      get("sleeps/summary/#{date.strftime('%F')}", :access_token => token)
-    end
-
-    # Weight
-
-    def self.weight(token = token)
-      get("weight", :access_token => token)
-    end
-
-    def self.readings_weight(token = token)
-      get("weight/readings", :access_token => token)
-    end
-
-    def self.readings_weight(id, token = token)
-      get("weight/readings/#{id}", :access_token => token)
-    end
-
-    def self.daily_weight(date, token = token)
-      get("weight/readings/daily/#{date.strftime('%F')}", :access_token => token)
-    end
-
-  end
+	end
 end
