@@ -23,11 +23,7 @@ module HumanAPI
 
     # Activity
 
-    def self.activities(token = token)
-      get("activities", :access_token => token)
-    end
-
-    def self.activities(id, token = token)
+    def self.activities(id = "", token = token)
       get("activities/#{id}", :access_token => token)
     end
 
