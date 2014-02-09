@@ -49,7 +49,7 @@ Here are all the supported API methods. For more information, please see the [Hu
     locations
     sleeps
     weight
-    bm: 
+    bmi
 
 ## Contributing
 Feel free to contribute with your pull requests!
