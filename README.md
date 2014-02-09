@@ -18,40 +18,125 @@ You can pass the token through to every API method call, or set it globally:
 
 ## Methods
 
+Rules are simple when calling Human methods: 
+- Singular word you will get one single measurement (height => the most recent height measurement)
+- Plural word you're likely to get the most recent measurements (activities => most recent activities). Pass an 'id' to your call and you will get just one measurement.
+- Sometimes you will use 'readings': you will get all the readings for the chosen section. (readings_height => all height readings). Use an 'id' to get just one of them.
+- When you use 'readings_daily': pass a date and you will get all readings for that date (readings_daily_height(&lt;date&gt;) => you get all the height readings for that &lt;date&gt;)
+- When you use 'summary': you get an extract of the measurements. Pass a date to get a daily summary
+
 Here are all the supported API methods. For more information, please see the [HumanAPI docs](http://humanapi.co/explorer).
 
-    HumanAPI::Human.profile
-    HumanAPI::Human.summary
-    HumanAPI::Human.all_activity
-    HumanAPI::Human.activity
-    HumanAPI::Human.daily_activity
-    HumanAPI::Human.series_activity
-    HumanAPI::Human.blood_glucose
-    HumanAPI::Human.all_blood_glucose
-    HumanAPI::Human.daily_blood_glucose
-    HumanAPI::Human.blood_pressure
-    HumanAPI::Human.all_blood_pressures
-    HumanAPI::Human.daily_blood_pressure
-    HumanAPI::Human.bmi
-    HumanAPI::Human.all_bmis
-    HumanAPI::Human.daily_bmi
-    HumanAPI::Human.body_fat
-    HumanAPI::Human.all_body_fats
-    HumanAPI::Human.daily_body_fat
-    HumanAPI::Human.genetic_traits
-    HumanAPI::Human.heart_rate
-    HumanAPI::Human.all_heart_rates
-    HumanAPI::Human.daily_heart_rate
-    HumanAPI::Human.height
-    HumanAPI::Human.all_heights
-    HumanAPI::Human.daily_height
-    HumanAPI::Human.all_locations
-    HumanAPI::Human.daily_location
-    HumanAPI::Human.sleep
-    HumanAPI::Human.all_sleep
-    HumanAPI::Human.daily_sleep
-    HumanAPI::Human.weight
-    HumanAPI::Human.all_weight
-    HumanAPI::Human.daily_weight
 
+    # Profile
+
+    HumanAPI::Human.summary([token <optional>]) 
+
+    HumanAPI::Human.profile([token <optional>]) 
+
+    # Activity
+
+    HumanAPI::Human.activities([token <optional>]) 
+
+    HumanAPI::Human.activities(id [, token <optional>]) 
+
+    HumanAPI::Human.daily_activities(date [, token <optional>]) 
+
+    HumanAPI::Human.summary_activities([token <optional>]) 
+
+    HumanAPI::Human.summary_activities(date [, token <optional>]) 
+
+    # Blood Glucose
+
+    HumanAPI::Human.blood_glucose([token <optional>])
+
+    HumanAPI::Human.readings_blood_glucose([token <optional>])
+
+    HumanAPI::Human.readings_blood_glucose(id [, token <optional>])
+
+    HumanAPI::Human.daily_blood_glucose(date [, token <optional>])
+
+    # Blood presure
+
+    HumanAPI::Human.blood_pressure([token <optional>])
+
+    HumanAPI::Human.readings_blood_pressure([token <optional>])
+
+    HumanAPI::Human.readings_blood_pressure(id [, token <optional>])
+
+    HumanAPI::Human.daily_blood_pressure(date [, token <optional>])
+
+    # BMI
+
+    HumanAPI::Human.bmi([token <optional>])
+
+    HumanAPI::Human.readings_bmi([token <optional>])
+
+    HumanAPI::Human.readings_bmi(id [, token <optional>])
+
+    HumanAPI::Human.readings_daily_bmi(date [, token <optional>])
+
+    # Body fat
+
+    HumanAPI::Human.body_fat([token <optional>])
+
+    HumanAPI::Human.readings_body_fat([token <optional>])
+
+    HumanAPI::Human.readings_body_fat(id [, token <optional>])
+
+    HumanAPI::Human.readings_daily_body_fat(date [, token <optional>])
+
+    # Genetics
+
+    HumanAPI::Human.genetic_traits([token <optional>])
+
+    # Heart rate
+
+    HumanAPI::Human.heart_rate([token <optional>])
+
+    HumanAPI::Human.readings_heart_rates([token <optional>])
+
+    HumanAPI::Human.readings_heart_rates(id [, token <optional>])
+
+    HumanAPI::Human.readings_daily_heart_rate(date [, token <optional>])
+
+    # Height
+
+    HumanAPI::Human.height([token <optional>])
+
+    HumanAPI::Human.readings_height([token <optional>])
+
+    HumanAPI::Human.readings_height(id [, token <optional>])
+
+    HumanAPI::Human.readings_daily_height(date [, token <optional>])
+
+    # Location
+
+    HumanAPI::Human.locations([token <optional>])
+
+    HumanAPI::Human.locations(id [, token <optional>])
+
+    HumanAPI::Human.daily_locations(date [, token <optional>])
+
+    # Sleep
+
+    HumanAPI::Human.sleeps([token <optional>])
+
+    HumanAPI::Human.sleeps(id  [, token <optional>])
+
+    HumanAPI::Human.daily_sleeps(date [, token <optional>])
+
+    HumanAPI::Human.summary_sleeps([token <optional>])
+
+    HumanAPI::Human.summary_sleeps(date [, token <optional>])
+
+    # Weight
+
+    HumanAPI::Human.weight([token <optional>])
+
+    HumanAPI::Human.readings_weight([token <optional>])
+
+    HumanAPI::Human.readings_weight(id [, token <optional>])
+
+    HumanAPI::Human.daily_weight(date [, token <optional>])
 ## Contributing
