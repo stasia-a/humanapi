@@ -73,11 +73,10 @@ module HumanAPI
 				if options[:date].present?
 					# Make a request for a specific date
 					url += "/daily/#{options[:date]}"
-
 				# If you passed an id
 				elsif options[:id].present?
 					# Make a request for a single 
-					url += "/#{id}"
+					url += "/#{options[:id]}"
 				end
 
 				# Make the request finally
