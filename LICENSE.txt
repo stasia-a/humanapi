@@ -1,4 +1,4 @@
-Copyright (c) 2013 Alex MacCaw
+Copyright (c) 2013 Pazienti.it
 
 MIT License
 

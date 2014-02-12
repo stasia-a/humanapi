@@ -1,7 +1,7 @@
 
 # THE MODULE
 module HumanAPI
-	# THE CLASS
+	# THE CLASS # TODO: Make it an instance of class HumanAPI::App :(
 	class App < Nestful::Resource
 
 		# The host of the api
@@ -10,34 +10,28 @@ module HumanAPI
 		# The path of the api
 		path '/v1/apps'
 
-		# TODO: These methods should go into a config file =======
-		
-		# Set the AppId
-		def self.app_id=(value)
-			@app_id = value
+		# This should be a private method
+		def self.authentication
+			Base64.encode64("#{HumanAPI.configuration.query_key}:") 
 		end
 
-		# Get the AppId
-		def self.app_id
-			@app_id
+		# Get the humans of your app
+		def self.humans
+			get("#{HumanAPI.configuration.app_id}/users", {}, {:headers => {"Authorization" => "Basic #{authentication}"}})
 		end
 
-		# Set the QueryKey
-		def self.query_key=(value)
-			@query_key = value
-		end
+		# Create a new human
+		def self.create_human(id)
+			# Make a call to create the user
+			response = post("#{HumanAPI.configuration.app_id}/users", {:externalId => id}, {:headers => {"Authorization" => "Basic #{authentication}"}})
 
-		# Get the QueryKey
-		def self.query_key
-			@query_key
-		end
-
-		# ========================================================
-
-		# Get the users of your app
-		def self.users(query_key = query_key)
-			authentication = Base64.encode64("#{query_key}:") 
-			get("#{app_id}/users", {}, {:headers => {"Authorization" => "Basic #{authentication}"}})
+			# If the response is true
+			if response.status >= 200 and response.status < 300 # Leave it for now
+				JSON.parse response.body
+			# Else tell me something went wrong
+			else
+				false # Nothing was created
+			end
 		end
 
 	end
