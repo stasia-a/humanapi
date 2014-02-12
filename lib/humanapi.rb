@@ -1,8 +1,19 @@
 require "json"
 require "nestful"
 require "humanapi/version"
-require "overrides/core_ext"
+require "humanapi/config"
+require "config/initializers/core_ext"
 
 module HumanAPI
-  autoload :Human, 'humanapi/human'
+	@configurations = HumanAPI::Config.new
+
+	def self.configuration
+		@configurations
+	end
+	def self.config
+		yield(@configurations) if block_given?
+	end
+
+	autoload :Human, 'humanapi/human'
+	autoload :App, 'humanapi/app'
 end
