@@ -2,7 +2,7 @@ require "json"
 require "nestful"
 require "humanapi/version"
 require "humanapi/config"
-require "overrides/core_ext"
+require "config/initializers/core_ext"
 
 module HumanAPI
 	@configurations = HumanAPI::Config.new
