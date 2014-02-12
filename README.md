@@ -9,14 +9,25 @@ Add this line to your application's Gemfile:
     gem 'humanapi'
 
 ## Configuration
+The configuration is made up of two parts. 
+###The app info configuration
+In this part you should give the gem your app_id and your query_key in order to use advanced features contained in the gem - like creating users for your humanapi app and getting a list of your humanpi app users.
+Here's how it works:
+    
+    HumanAPI.config do |configuration|
+        configuration.app_id = "<yourappid>"
+        configuration.query_key = "<yourquerykey>"
+    end
+That's it for the general info of the app.
 
-First get a user's OAuth token, perhaps through [omniauth-humanapi](https://github.com/maccman/omniauth-humanapi).
-
+###The user token configuration
+First get a user token - maybe - through [omniauth-humanapi](https://github.com/maccman/omniauth-humanapi).
+Once you stored it - you should use tell the gem what the token of your user is.
 You can pass the token through to every API method call, or set it globally:
 
     HumanAPI::Human.token = token
 
-Set it wherever you want.
+Set it wherever you want. Remember that for now you need to set it for every user
 
 ## Usage
 Call the method query and pass in the method you want to call:

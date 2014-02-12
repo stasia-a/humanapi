@@ -26,29 +26,34 @@ module HumanAPI
 							:bmi
 							]
 
+		def init(options)
+			@token = options.token
+			super
+		end
+
 		# Set the token
-		def self.token=(value)
+		def token=(value)
 			@token = value
 		end
 
 		# Get the token
-		def self.token
+		def token
 			@token
 		end
 
 		# Profile =====================================
 
-		def self.summary(token = token)
+		def summary
 			get('', :access_token => token)
 		end
 
-		def self.profile(token = token)
+		def profile
 			query('profile')
 		end
 
 		# =============================================
 
-		def self.query(method, options = {}, token = token)
+		def query(method, options = {})
 
 			# Is this method in the list?
 			if AVAILABLE_METHODS.include? method.to_sym
