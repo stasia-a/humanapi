@@ -1,3 +1,3 @@
-module HumanApi
-  VERSION = "0.1.2"
+module HumanAPI
+  VERSION = "0.1.3"
 end
