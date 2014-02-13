@@ -4,6 +4,8 @@ module HumanAPI
 	# THE CLASS
 	class Human < Nestful::Resource
 
+		attr_reader :token
+
 		# The host of the api
 		endpoint 'https://api.humanapi.co'
 
@@ -26,19 +28,9 @@ module HumanAPI
 							:bmi
 							]
 
-		def init(options)
-			@token = options.token
+		def initialize(options)
+			@token = options[:access_token]
 			super
-		end
-
-		# Set the token
-		def token=(value)
-			@token = value
-		end
-
-		# Get the token
-		def token
-			@token
 		end
 
 		# Profile =====================================
