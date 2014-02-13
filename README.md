@@ -9,58 +9,48 @@ Add this line to your application's Gemfile:
     gem 'humanapi'
 
 ## Configuration
-The configuration is made up of two parts. 
-###The app info configuration
-In this part you should give the gem your app_id and your query_key in order to use advanced features contained in the gem - like creating users for your humanapi app and getting a list of your humanpi app users.
-Here's how it works:
-    
-    HumanAPI.config do |configuration|
-        configuration.app_id = "<yourappid>"
-        configuration.query_key = "<yourquerykey>"
-    end
-That's it for the general info of the app.
+The gem is quite simple to configure. You can configure the gem using its home-made initializer:
 
-###The user token configuration
-First get a user token - maybe - through [omniauth-humanapi](https://github.com/maccman/omniauth-humanapi).
-Once you stored it - you should use tell the gem what the token of your user is.
-You can pass the token through to every API method call, or set it globally:
-
-    HumanAPI::Human.token = token
-
-Set it wherever you want. Remember that for now you need to set it for every user
+	HumanAPI.config do |c|
+		c.app_id = "<YOUR_APP_ID>"
+		c.query_key = "<YOUR_QUERY_KEY>"
+		
+		# This is the part where the magics happen
+		c.human_model = User       # Tell me what is the model you want to use
+		c.token_method_name = :human_token   # Tell me the method you use to retrieve the token (Inside the human_model)
+	end
 
 ## Usage
-Call the method query and pass in the method you want to call:
-    
-    HumanAPI::Human.query(:activites) #=> An array of activites
+Once you did the configuration, the usage of the gem is quite ridiculous:
 
-You can pass options like ':readings' (in case you want all readings of one resource), ':summary' (if you want an extract of the resource measurements), ':id' (if you would like just one measurement) and ':date' (in case you want your results extracted from a specific date).
+	# Somewhere in your model
+	u = User.first
+	u.human.profile    #=> Will return the humanapi user's profile
+	u.human.query(:activities) #=> Will return everything you asked for
 
-    HumanAPI::Human.query(:activites, {:summary => true}) #=> An array of activites
+Just use the _human_ instance method from your User instance and that's it ;)
 
-    # or
+###The query method
+The query method is meant to ask whatever you want whenever you want. Here are some permitted methods (according to humanapi) you can use to retrieve user's data:
 
-    HumanAPI::Human.query(:activites, {:date => Date.today}) #=> An array of activites
+	profile 
+	activities
+	blood_glucose
+	blood_pressure
+	body_fat
+	genetic_traits
+	heart_rate
+	height
+	locations
+	sleeps
+	weight
+	bmi
 
-    # or
+Mixin' up these methods with some options will give you what you want. 
 
-    HumanAPI::Human.query(:activites, {:id => "52f6dc0a77de67ce6f04046f"}) #=> A single activity
-
-Here are all the supported API methods. For more information, please see the [HumanAPI docs](http://humanapi.co/explorer).
-    
-    #TODO: add specification for each method
-    profile 
-    activities
-    blood_glucose
-    blood_pressure
-    body_fat
-    genetic_traits
-    heart_rate
-    height
-    locations
-    sleeps
-    weight
-    bmi
-
+	user.human.query(:activities, :summary => true) #=> will give you a summary of the activities
+	user.human.query(:sleeps, :date => "2014-01-01") #=> Will give you a single sleep measurement
+	user.human.query(:weight, ) #=> Will give you a single sleep measurement
+	
 ## Contributing
 Feel free to contribute with your pull requests!
