@@ -5,15 +5,21 @@ require "humanapi/config"
 require "config/initializers/core_ext"
 
 module HumanAPI
-	@configurations = HumanAPI::Config.new
 
-	def self.configuration
-		@configurations
-	end
+	@config = HumanAPI::Config.new
+
 	def self.config
-		yield(@configurations) if block_given?
+
+		if block_given?
+			yield(@config)
+			@config.configure
+		else
+			@config
+		end
+
 	end
 
 	autoload :Human, 'humanapi/human'
 	autoload :App, 'humanapi/app'
+
 end
