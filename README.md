@@ -49,20 +49,27 @@ The query method is meant to ask whatever you want whenever you want. Here are s
 
 Mixin' up these methods with some options will give you what you want. 
 
-	user.human.query(:activities, :summary => true) #=> will give you a summary of the activities
-	user.human.query(:sleeps, :date => "2014-01-01") #=> Will give you a single sleep measurement
+	u.human.query(:activities, :summary => true) #=> will give you a summary of the activities
+	u.human.query(:sleeps, :date => "2014-01-01") #=> Will give you a single sleep measurement
 	
 	# Getting KPIs (KPIs are just single values you get to retrieve a measurements average value)
-	user.human.query(:weight) #=> Will give you a single weight value (The avg I guess)
+	u.human.query(:weight) #=> Will give you a single weight value (The avg I guess)
 	
 	# Getting readings (If you begin with a single avg value and you wanna go deeper)
-	user.human.query(:weight, :readings => true)
+	u.human.query(:weight, :readings => true)
 	
 Lastly, as a common rule, I've identified a pattern in humanapis. 
 - If the method name is plural, it will give you multiple measurements when calling it. In addition, you can ask for a :summary => true, for a group of value in a specific :date => "DATE" or for a single known measurement :id => "measurement_id"
 - If the method name is singular, it will give you a single avg value for what you asked. In addition, you can ask for all :readings => true and for all readings => true in a specific :date=> "DATE".
 - If I'm missing something just send me a PM or open an issue.
 	
-	
+
+###The alternative
+If you don't like that configuration, you can use a simple method right in your own user model:
+
+	humanizable :token_method
+
+That's it! Then you can do something like _u.human.profile_ like I said before.
+
 ## Contributing
 Feel free to contribute with your pull requests and forks. Get in touch with us at team@pazienti.it or open an issue.

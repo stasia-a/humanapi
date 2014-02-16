@@ -39,9 +39,9 @@ module HumanAPI
 					raise "Could not find '#{token_method_name}' in #{human_model}. #{CHECK_THE_GUIDE}"
 				end
 			else
-				unless hardcore
-					raise "You must set a human_model and a token_method_name. #{CHECK_THE_GUIDE}"
-				end
+				# unless hardcore
+				# 	raise "You must set a human_model and a token_method_name. #{CHECK_THE_GUIDE}"
+				# end
 			end
 		end
 	end
