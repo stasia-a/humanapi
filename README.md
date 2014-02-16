@@ -1,18 +1,18 @@
-# HumanAPI
+# HumanApi
 
-A Ruby client to [HumanAPI](http://humanapi.co).
+A Ruby client to [HumanApi](http://humanapi.co).
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
     # We're going to publish our gem soon...
-    gem 'humanapi', :git => 'git://github.com/Pazienti/humanpi.git'
+    gem 'human_api', :git => 'git://github.com/Pazienti/humanapi.git'
 
 ## Configuration
 The gem is quite simple to configure. You can configure the gem using its home-made initializer:
 
-	HumanAPI.config do |c|
+	HumanApi.config do |c|
 		c.app_id = "<YOUR_APP_ID>"
 		c.query_key = "<YOUR_QUERY_KEY>"
 		
