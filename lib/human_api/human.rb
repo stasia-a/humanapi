@@ -1,6 +1,6 @@
 
 # THE MODULE
-module HumanAPI
+module HumanApi
 	# THE CLASS
 	class Human < Nestful::Resource
 

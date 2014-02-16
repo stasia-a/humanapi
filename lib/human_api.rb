@@ -1,12 +1,12 @@
 require "json"
 require "nestful"
-require "humanapi/version"
-require "humanapi/config"
+require "human_api/version"
+require "human_api/config"
 require "config/initializers/core_ext"
 
-module HumanAPI
+module HumanApi
 
-	@config = HumanAPI::Config.new
+	@config = HumanApi::Config.new
 
 	def self.config
 
@@ -19,7 +19,7 @@ module HumanAPI
 
 	end
 
-	autoload :Human, 'humanapi/human'
-	autoload :App, 'humanapi/app'
+	autoload :Human, 'human_api/human'
+	autoload :App, 'human_api/app'
 
 end
