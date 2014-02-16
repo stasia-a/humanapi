@@ -1,18 +1,18 @@
 
 # THE MODULE
-module HumanAPI
-	# THE CLASS # TODO: Make it an instance of class HumanAPI::App :(
+module HumanApi
+	# THE CLASS # TODO: Make it an instance of class HumanApi::App :(
 	class App < Nestful::Resource
 
 		# The host of the api
 		endpoint 'https://api.humanapi.co'
 
 		# The path of the api
-		path "/v1/apps/#{HumanAPI.config.app_id}"
+		path "/v1/apps/#{HumanApi.config.app_id}"
 
 		# This should be a private method
 		def self.authentication
-			Base64.encode64("#{HumanAPI.config.query_key}:") 
+			Base64.encode64("#{HumanApi.config.query_key}:") 
 		end
 
 		# Get the humans of your app

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'humanapi/version'
+require 'human_api/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "humanapi"
-  spec.version       = HumanAPI::VERSION
+  spec.name          = "human_api"
+  spec.version       = HumanApi::VERSION
   spec.authors       = ["Alessio Santo"]
   spec.email         = ["alessio.santo@pazienti.it"]
   spec.description   = %q{API client for HumanAPI}

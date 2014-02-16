@@ -1,6 +1,6 @@
 
 # THE MODULE
-module HumanAPI
+module HumanApi
 	# THE CLASS
 	class Config
 		attr_accessor :app_id, :query_key, :human_model, :token_method_name, :hardcore
@@ -32,7 +32,7 @@ module HumanAPI
 						# The method in the human_model class instance
 						def human
 							# Initialize with the access token
-							@human_var ||= HumanAPI::Human.new(:access_token => self.send(HumanAPI.config.token_method_name.to_sym))
+							@human_var ||= HumanApi::Human.new(:access_token => self.send(HumanApi.config.token_method_name.to_sym))
 						end
 					end
 				else

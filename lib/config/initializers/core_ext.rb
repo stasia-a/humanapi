@@ -10,7 +10,7 @@ class ActiveRecord::Base
 
 	def self.humanizable(method)
 		define_method :human do
-			@human_var ||= HumanAPI::Human.new(:access_token => self.send(method.to_sym))
+			@human_var ||= HumanApi::Human.new(:access_token => self.send(method.to_sym))
 		end
 	end
 end
