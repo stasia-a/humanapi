@@ -7,7 +7,7 @@ A Ruby client to [HumanApi](http://humanapi.co).
 Add this line to your application's Gemfile:
 
     # We're going to publish our gem soon...
-    gem 'human_api', :git => 'git://github.com/Pazienti/humanapi.git'
+    gem 'human_api'
 
 ## Configuration
 The gem is quite simple to configure. You can configure the gem using its home-made initializer:
