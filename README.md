@@ -71,4 +71,4 @@ If you don't like that configuration, you can use a simple method right in your 
 That's it! Then you can do something like _u.human.profile_ like I said before.
 
 ## Contributing
-Feel free to contribute with your pull requests and forks. Get in touch with us at team@pazienti.it or open an issue.
+Feel free to contribute with your pull requests and forks. Get in touch with us at dev@pazienti.it or open an issue.
