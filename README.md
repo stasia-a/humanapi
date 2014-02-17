@@ -6,7 +6,6 @@ A Ruby client to [HumanApi](http://humanapi.co).
 
 Add this line to your application's Gemfile:
 
-    # We're going to publish our gem soon...
     gem 'human_api'
 
 ## Configuration
