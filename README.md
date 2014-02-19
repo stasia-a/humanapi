@@ -1,5 +1,4 @@
-# HumanApi
-
+# HumanApi [![Gem Version](https://badge.fury.io/rb/human_api.png)](http://badge.fury.io/rb/human_api)
 A Ruby client to [HumanApi](http://humanapi.co).
 
 ## Installation
