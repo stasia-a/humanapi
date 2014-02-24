@@ -10,56 +10,56 @@ Add this line to your application's Gemfile:
 ## Configuration
 Let's say you have an User model as follows:
 ```ruby
-	class User<ActiveRecord::Base
-		# Some attributes here
-		
-		def get_the_token
-			# the code to reach the token
-		end
+class User<ActiveRecord::Base
+	# Some attributes here
+	
+	def get_the_token
+		# the code to reach the token
 	end
+end
 ```
 Then you can do this:
 ```ruby
-	class User<ActiveRecord::Base
-		# Some attributes here
-		
-		humanizable :get_the_token
-		
-		def get_the_token
-			# the code to reach the token
-		end
+class User<ActiveRecord::Base
+	# Some attributes here
+	
+	humanizable :get_the_token
+	
+	def get_the_token
+		# the code to reach the token
 	end
+end
 ```
 This configuration is really simple. I suggest it over the second one.
 
 Always remember to configure the initializer with the access keys:
 ```ruby
-	HumanApi.config do |c|
-		c.app_id = ENV['HUMANAPI_KEY']
-		c.query_key = ENV['HUMANAPI_SECRET']
+HumanApi.config do |c|
+	c.app_id = ENV['HUMANAPI_KEY']
+	c.query_key = ENV['HUMANAPI_SECRET']
 	end
 ```
 ###The alternative
 If you don't like that configuration, you can use a different one, writing right into the initializer:
 ```ruby
-	HumanApi.config do |c|
-		c.app_id = "<YOUR_APP_ID>"
-		c.query_key = "<YOUR_QUERY_KEY>"
-		
-		# This is the part where the magics happen
-		c.human_model = User       # Tell me what is the model you want to use
-		c.token_method_name = :human_token   # Tell me the method you use to retrieve the token (Inside the human_model)
-	end
+HumanApi.config do |c|
+	c.app_id = "<YOUR_APP_ID>"
+	c.query_key = "<YOUR_QUERY_KEY>"
+	
+	# This is the part where the magics happen
+	c.human_model = User       # Tell me what is the model you want to use
+	c.token_method_name = :human_token   # Tell me the method you use to retrieve the token (Inside the human_model)
+end
 ```
 It should work in both ways, the choice is yours.
 
 ## Usage
 Once you did the configuration, the usage of the gem is quite ridiculous:
 ```ruby
-	# Somewhere in your model
-	u = User.first
-	u.human.profile    #=> Will return the humanapi user's profile
-	u.human.query(:activities) #=> Will return everything you asked for
+# Somewhere in your model
+u = User.first
+u.human.profile    #=> Will return the humanapi user's profile
+u.human.query(:activities) #=> Will return everything you asked for
 ```
 Just use the _human_ instance method from your User instance and that's it ;)
 
@@ -81,14 +81,14 @@ The query method is meant to ask whatever you want whenever you want. Here are s
 
 Mixin' up these methods with some options will give you what you want. 
 ```ruby
-	u.human.query(:activities, :summary => true) #=> will give you a summary of the activities
-	u.human.query(:sleeps, :date => "2014-01-01") #=> Will give you a single sleep measurement
-	
-	# Getting KPIs (KPIs are just single values you get to retrieve a measurements average value)
-	u.human.query(:weight) #=> Will give you a single weight value (The avg I guess)
-	
-	# Getting readings (If you begin with a single avg value and you wanna go deeper)
-	u.human.query(:weight, :readings => true)
+u.human.query(:activities, :summary => true) #=> will give you a summary of the activities
+u.human.query(:sleeps, :date => "2014-01-01") #=> Will give you a single sleep measurement
+
+# Getting KPIs (KPIs are just single values you get to retrieve a measurements average value)
+u.human.query(:weight) #=> Will give you a single weight value (The avg I guess)
+
+# Getting readings (If you begin with a single avg value and you wanna go deeper)
+u.human.query(:weight, :readings => true)
 ```
 Lastly, as a common rule, I've identified a pattern in humanapis. 
 - If the method name is plural, it will give you multiple measurements when calling it. In addition, you can ask for a :summary => true, for a group of value in a specific :date => "DATE" or for a single known measurement :id => "measurement_id"
