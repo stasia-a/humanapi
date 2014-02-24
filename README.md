@@ -8,7 +8,39 @@ Add this line to your application's Gemfile:
     gem 'human_api'
 
 ## Configuration
-The gem is quite simple to configure. You can configure the gem using its home-made initializer:
+Let's say you have an User model as follows:
+
+	class User<ActiveRecord::Base
+		# Some attributes here
+		
+		def get_the_token
+			# the code to reach the token
+		end
+	end
+
+Then you can do this:
+
+	class User<ActiveRecord::Base
+		# Some attributes here
+		
+		humanizable :get_the_token
+		
+		def get_the_token
+			# the code to reach the token
+		end
+	end
+
+This configuration is really simple. I suggest it over the second one.
+
+Always remember to configure the initializer with the access keys:
+
+	HumanApi.config do |c|
+		c.app_id = ENV['HUMANAPI_KEY']
+		c.query_key = ENV['HUMANAPI_SECRET']
+	end
+
+###The alternative
+If you don't like that configuration, you can use a different one, writing right into the initializer:
 
 	HumanApi.config do |c|
 		c.app_id = "<YOUR_APP_ID>"
@@ -19,12 +51,7 @@ The gem is quite simple to configure. You can configure the gem using its home-m
 		c.token_method_name = :human_token   # Tell me the method you use to retrieve the token (Inside the human_model)
 	end
 
-###The alternative
-If you don't like that configuration, you can use a simple method right in your own user model:
-
-	humanizable :token_method
-
-That's it! Then you can do something like _u.human.profile_ like I said before.
+It should work in both ways, the choice is yours.
 
 ## Usage
 Once you did the configuration, the usage of the gem is quite ridiculous:
