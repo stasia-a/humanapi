@@ -5,7 +5,7 @@ A Ruby client to [HumanApi](http://humanapi.co).
 
 Add this line to your application's Gemfile:
 ```ruby
-    gem 'human_api'
+gem 'human_api'
 ```
 ## Configuration
 Let's say you have an User model as follows:
