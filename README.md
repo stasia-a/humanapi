@@ -65,20 +65,20 @@ Just use the _human_ instance method from your User instance and that's it ;)
 
 ###The query method
 The query method is meant to ask whatever you want whenever you want. Here are some permitted methods (according to humanapi) you can use to retrieve user's data:
-
-	profile 
-	activities
-	blood_glucose
-	blood_pressure
-	body_fat
-	genetic_traits
-	heart_rate
-	height
-	locations
-	sleeps
-	weight
-	bmi
-
+```ruby
+:profile 
+:activities
+:blood_glucose
+:blood_pressure
+:body_fat
+:genetic_traits
+:heart_rate
+:height
+:locations
+:sleeps
+:weight
+:bmi
+```
 Mixin' up these methods with some options will give you what you want. 
 ```ruby
 u.human.query(:activities, :summary => true) #=> will give you a summary of the activities
