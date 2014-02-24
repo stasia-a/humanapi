@@ -4,12 +4,12 @@ A Ruby client to [HumanApi](http://humanapi.co).
 ## Installation
 
 Add this line to your application's Gemfile:
-
+```ruby
     gem 'human_api'
-
+```
 ## Configuration
 Let's say you have an User model as follows:
-
+```ruby
 	class User<ActiveRecord::Base
 		# Some attributes here
 		
@@ -17,9 +17,9 @@ Let's say you have an User model as follows:
 			# the code to reach the token
 		end
 	end
-
+```
 Then you can do this:
-
+```ruby
 	class User<ActiveRecord::Base
 		# Some attributes here
 		
@@ -29,19 +29,19 @@ Then you can do this:
 			# the code to reach the token
 		end
 	end
-
+```
 This configuration is really simple. I suggest it over the second one.
 
 Always remember to configure the initializer with the access keys:
-
+```ruby
 	HumanApi.config do |c|
 		c.app_id = ENV['HUMANAPI_KEY']
 		c.query_key = ENV['HUMANAPI_SECRET']
 	end
-
+```
 ###The alternative
 If you don't like that configuration, you can use a different one, writing right into the initializer:
-
+```ruby
 	HumanApi.config do |c|
 		c.app_id = "<YOUR_APP_ID>"
 		c.query_key = "<YOUR_QUERY_KEY>"
@@ -50,17 +50,17 @@ If you don't like that configuration, you can use a different one, writing right
 		c.human_model = User       # Tell me what is the model you want to use
 		c.token_method_name = :human_token   # Tell me the method you use to retrieve the token (Inside the human_model)
 	end
-
+```
 It should work in both ways, the choice is yours.
 
 ## Usage
 Once you did the configuration, the usage of the gem is quite ridiculous:
-
+```ruby
 	# Somewhere in your model
 	u = User.first
 	u.human.profile    #=> Will return the humanapi user's profile
 	u.human.query(:activities) #=> Will return everything you asked for
-
+```
 Just use the _human_ instance method from your User instance and that's it ;)
 
 ###The query method
@@ -80,7 +80,7 @@ The query method is meant to ask whatever you want whenever you want. Here are s
 	bmi
 
 Mixin' up these methods with some options will give you what you want. 
-
+```ruby
 	u.human.query(:activities, :summary => true) #=> will give you a summary of the activities
 	u.human.query(:sleeps, :date => "2014-01-01") #=> Will give you a single sleep measurement
 	
@@ -89,7 +89,7 @@ Mixin' up these methods with some options will give you what you want.
 	
 	# Getting readings (If you begin with a single avg value and you wanna go deeper)
 	u.human.query(:weight, :readings => true)
-	
+```
 Lastly, as a common rule, I've identified a pattern in humanapis. 
 - If the method name is plural, it will give you multiple measurements when calling it. In addition, you can ask for a :summary => true, for a group of value in a specific :date => "DATE" or for a single known measurement :id => "measurement_id"
 - If the method name is singular, it will give you a single avg value for what you asked. In addition, you can ask for all :readings => true and for all readings => true in a specific :date=> "DATE".
