@@ -1,8 +1,10 @@
 
 # THE MODULE
-module HumanAPI
+module HumanApi
 	# THE CLASS
 	class Human < Nestful::Resource
+
+		attr_reader :token
 
 		# The host of the api
 		endpoint 'https://api.humanapi.co'
@@ -26,29 +28,24 @@ module HumanAPI
 							:bmi
 							]
 
-		# Set the token
-		def self.token=(value)
-			@token = value
-		end
-
-		# Get the token
-		def self.token
-			@token
+		def initialize(options)
+			@token = options[:access_token]
+			super
 		end
 
 		# Profile =====================================
 
-		def self.summary(token = token)
+		def summary
 			get('', :access_token => token)
 		end
 
-		def self.profile(token = token)
+		def profile
 			query('profile')
 		end
 
 		# =============================================
 
-		def self.query(method, options = {}, token = token)
+		def query(method, options = {})
 
 			# Is this method in the list?
 			if AVAILABLE_METHODS.include? method.to_sym
@@ -73,11 +70,10 @@ module HumanAPI
 				if options[:date].present?
 					# Make a request for a specific date
 					url += "/daily/#{options[:date]}"
-
 				# If you passed an id
 				elsif options[:id].present?
 					# Make a request for a single 
-					url += "/#{id}"
+					url += "/#{options[:id]}"
 				end
 
 				# Make the request finally
