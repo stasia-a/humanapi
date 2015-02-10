@@ -76,8 +76,12 @@ module HumanApi
 					url += "/#{options[:id]}"
 				end
 
+				params = { :access_token => token }
+				params.merge!(:start_date => options[:start_date]) if options[:start_date]
+				params.merge!(:end_date => options[:end_date]) if options[:end_date]
+
 				# Make the request finally
-				result = get(url, :access_token => token)
+				result = get(url, params)
 
 				# Converting to json the body string
 				JSON.parse(result.body)
