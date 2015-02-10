@@ -61,8 +61,8 @@ module HumanApi
 						url += "/readings"
 					end
 				else
-					if options[:summary] == true
-						url += "/summary"
+					if options[:summaries] == true
+						url += "/summaries"
 					end
 				end
 
