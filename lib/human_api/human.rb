@@ -14,17 +14,17 @@ module HumanApi
 
 		# The available methods for this api
 		AVAILABLE_METHODS = [
-							:profile, 
-							:activities, 
-							:blood_glucose, 
-							:blood_pressure, 
-							:body_fat, 
-							:genetic_traits, 
-							:heart_rate, 
-							:height, 
-							:locations, 
-							:sleeps, 
-							:weight, 
+							:profile,
+							:activities,
+							:blood_glucose,
+							:blood_pressure,
+							:body_fat,
+							:genetic_traits,
+							:heart_rate,
+							:height,
+							:locations,
+							:sleeps,
+							:weight,
 							:bmi
 							]
 
@@ -74,13 +74,14 @@ module HumanApi
 					url += "/daily/#{options[:date]}"
 				# If you passed an id
 				elsif options[:id].present?
-					# Make a request for a single 
+					# Make a request for a single
 					url += "/#{options[:id]}"
 				end
 
 				params = { :access_token => token }
 				params.merge!(:start_date => options[:start_date]) if options[:start_date]
 				params.merge!(:end_date => options[:end_date]) if options[:end_date]
+				params.merge!(:limit => options[:limit])
 
 				# Make the request finally
 				result = get(url, params)
